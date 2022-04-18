@@ -1,6 +1,6 @@
 FROM jenkins/jnlp-agent-alpine:latest
 
-RUN apk update && apk add --no-cache curl docker-cli tzdata openssh
+RUN apk update && apk add --no-cache curl docker-cli tzdata ansible
 
 RUN mkdir -p /home/jenkins/tools && mkdir -p /home/jenkins/workspace
 
