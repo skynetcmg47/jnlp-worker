@@ -2,8 +2,10 @@ FROM jenkins/ssh-agent:latest-alpine-jdk8
 
 RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl
 
-RUN mkdir -p /home/jenkins/tools && mkdir -p /home/jenkins/workspace
+RUN mkdir -p /home/jenkins/tools && \
+mkdir -p /home/jenkins/workspace
 
+RUN echo $(ls -l /home/jenkins/workspace)
 RUN echo $(ls -l /home/jenkins/tools)
 
 RUN wget https://golang.org/dl/go1.17.2.linux-amd64.tar.gz && \
