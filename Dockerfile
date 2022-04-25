@@ -4,7 +4,7 @@ RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn per
 
 RUN mkdir -p /home/jenkins/tools && mkdir -p /home/jenkins/workspace
 
-RUN echo $(ls -l /home/jenkins)
+RUN echo $(ls -l /home/jenkins/tools)
 
 RUN wget https://golang.org/dl/go1.17.2.linux-amd64.tar.gz && \
 tar -C /home/jenkins/tools -zxf go1.17.2.linux-amd64.tar.gz && \
