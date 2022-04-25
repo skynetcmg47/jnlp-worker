@@ -1,4 +1,4 @@
-FROM jenkins/jnlp-agent-alpine:latest
+FROM jenkins/ssh-agent:latest-alpine-jdk8
 
 RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl
 
