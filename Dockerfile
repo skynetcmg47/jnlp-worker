@@ -2,6 +2,8 @@ FROM jenkins/ssh-agent:latest-alpine-jdk8
 
 RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl openjdk11
 
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
+
 ARG TOOLS_HOME=/opt/tools
 
 RUN mkdir -p $TOOLS_HOME/gradle && mkdir -p /opt/workspace
@@ -29,7 +31,7 @@ ENV GRADLE7_HOME=$TOOLS_HOME/gradle/gradle-7.4.1
 ENV GRADLE6_HOME=$TOOLS_HOME/gradle/gradle-6.8.3
 ENV GRADLE5_HOME=$TOOLS_HOME/gradle/gradle-5.2.1
 
-ENV PATH=$GRADLE_HOME/bin:$GO_HOME/bin:$PATH
+ENV PATH=$GRADLE_HOME/bin:$GO_HOME/bin:$JAVA_HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
