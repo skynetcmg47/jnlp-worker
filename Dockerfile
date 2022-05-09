@@ -1,4 +1,4 @@
-FROM jenkins/ssh-agent:alpine
+FROM jenkins/ssh-agent:latest-alpine-jdk8
 
 RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl openjdk11
 
