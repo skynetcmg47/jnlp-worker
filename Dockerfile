@@ -4,6 +4,8 @@ RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn per
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
 
+ENV JENKINS_AGENT_HOME=/root
+
 ARG TOOLS_HOME=/opt/tools
 
 RUN mkdir -p $TOOLS_HOME/gradle && mkdir -p /opt/workspace
