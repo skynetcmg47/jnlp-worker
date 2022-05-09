@@ -1,6 +1,6 @@
-FROM jenkins/ssh-agent:jdk11
+FROM jenkins/ssh-agent:alpine
 
-RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl
+RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl openjdk11
 
 RUN mkdir -p /opt/tools && mkdir -p /opt/workspace
 
