@@ -1,6 +1,6 @@
 FROM jenkins/ssh-agent:latest-alpine-jdk8
 
-RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl openjdk11 git zipinfo gtar
+RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl openjdk11 git zipinfo
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
 
