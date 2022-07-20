@@ -10,9 +10,9 @@ ARG TOOLS_HOME=/opt/tools
 
 RUN mkdir -p $TOOLS_HOME/gradle && mkdir -p /opt/workspace
 
-RUN wget https://golang.org/dl/go1.17.2.linux-amd64.tar.gz && \
-tar -C $TOOLS_HOME -zxf go1.17.2.linux-amd64.tar.gz && \
-rm go1.17.2.linux-amd64.tar.gz
+RUN wget https://golang.org/dl/go1.18.4.linux-amd64.tar.gz && \
+tar -C $TOOLS_HOME -zxf go1.18.4.linux-amd64.tar.gz && \
+rm go1.18.4.linux-amd64.tar.gz
 
 RUN wget https://services.gradle.org/distributions/gradle-7.4.1-all.zip && \
 unzip -q gradle-7.4.1-all.zip -d $TOOLS_HOME/gradle && \
