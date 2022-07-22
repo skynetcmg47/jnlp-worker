@@ -1,6 +1,11 @@
 FROM jenkins/ssh-agent:latest-alpine-jdk8
 
 RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl openjdk11 git unzip
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
+RUN python -m pip install awscli
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
 
