@@ -1,4 +1,4 @@
-FROM jenkins/ssh-agent:latest-alpine-jdk8
+FROM jenkins/ssh-agent:4.1.0-alpine-jdk8
 
 RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl openjdk11 git zip rsync jq
 ENV PYTHONUNBUFFERED=1
@@ -50,6 +50,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN mkdir -p /root/.ssh \
     && chmod 0700 /root/.ssh \
     && apk add openrc \
+    && passwd -u root \
     && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
     && sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config \
     && mkdir -p /run/openrc \
