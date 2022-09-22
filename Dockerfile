@@ -1,6 +1,6 @@
 FROM jenkins/ssh-agent:4.1.0-alpine-jdk8
 
-RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl openjdk11 git zip rsync jq
+RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl openjdk11 git zip rsync jq coreutils
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
@@ -46,6 +46,15 @@ ENV LC_ALL en_US.UTF-8
 
 ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+ENV NVM_DIR=/opt/nvm
+ENV NODE_VERSION=16
+RUN mkdir -p $NVM_DIR \
+    && curl https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash \
+    && . $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
 
 RUN mkdir -p /root/.ssh \
     && chmod 0700 /root/.ssh \
