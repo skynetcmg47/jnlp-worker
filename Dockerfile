@@ -7,8 +7,6 @@ RUN python3 -m ensurepip
 RUN pip3 install --no-cache --upgrade pip setuptools yq==2.14.0
 RUN python -m pip install awscli 
 
-ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
-
 ENV JENKINS_AGENT_HOME=/root
 
 ARG TOOLS_HOME=/opt/tools
