@@ -1,10 +1,10 @@
 FROM jenkins/ssh-agent:4.5.1-alpine-jdk11
 
-RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl git zip rsync jq coreutils py3-ansi2html
+RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl git zip rsync jq coreutils
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
-RUN pip3 install --no-cache --upgrade pip setuptools yq==2.14.0
+RUN pip3 install --no-cache --upgrade pip setuptools yq==2.14.0 ansi2html
 RUN python -m pip install awscli 
 
 ENV JENKINS_AGENT_HOME=/root
