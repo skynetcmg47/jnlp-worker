@@ -56,7 +56,6 @@ RUN mkdir -p $NVM_DIR \
 
 RUN mkdir -p /root/.ssh \
     && chmod 0700 /root/.ssh \
-    && passwd -u root \
     && apk add openrc \
     && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
     && sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config \
