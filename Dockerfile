@@ -1,6 +1,6 @@
 FROM jenkins/ssh-agent:4.5.1-jdk11
 
-RUN apt update && apt-get install curl docker-cli tzdata ansible tar yarn perl git zip rsync jq coreutils
+RUN apt update && apt-get install curl docker-ce-cli tzdata ansible tar yarn perl git zip rsync jq coreutils
 ENV PYTHONUNBUFFERED=1
 RUN apt-get install python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
