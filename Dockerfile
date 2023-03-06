@@ -1,4 +1,5 @@
 FROM jenkins/ssh-agent:4.5.1-jdk11
+RUN apt update && apt install -y curl
 RUN curl -fsSL get.docker.com | CHANNEL=stable sh
 RUN apt install -y docker-ce
 RUN apt-get install -y curl docker-ce-cli tzdata ansible tar yarn perl git zip rsync jq coreutils
