@@ -1,13 +1,13 @@
-FROM jenkins/ssh-agent:4.5.1-jdk11
-RUN apt update && apt install -y curl
-RUN curl -fsSL get.docker.com | CHANNEL=stable sh
-RUN apt-get install -y curl docker-ce-cli tzdata ansible tar yarn perl git zip rsync jq coreutils wget
+FROM jenkins/ssh-agent:4.5.1-alpine-jdk11
+
+RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl git zip rsync jq coreutils
 ENV PYTHONUNBUFFERED=1
-RUN apt-get install -y python3 python3-pip && ln -sf python3 /usr/bin/python
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
 RUN pip3 install --no-cache --upgrade pip setuptools yq==2.14.0 ansi2html
 RUN python -m pip install awscli 
 
-ENV JENKINS_AGENT_HOME=/root
+ENV JENKINS_AGENT_HOME=/home/jenkins
 
 ARG TOOLS_HOME=/opt/tools
 
@@ -54,9 +54,10 @@ RUN mkdir -p $NVM_DIR \
     && nvm alias default $NODE_VERSION \
     && nvm use default
 
-RUN mkdir -p /root/.ssh \
-    && chmod 0700 /root/.ssh \
-    && apt-get install -y openrc \
+RUN mkdir -p $JENKINS_AGENT_HOME/.ssh \
+    && chmod 0700 $JENKINS_AGENT_HOME/.ssh \
+    && apk add openrc \
+    && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
     && sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config \
     && mkdir -p /run/openrc \
     && touch /run/openrc/softlevel
