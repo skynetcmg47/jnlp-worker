@@ -61,6 +61,9 @@ RUN mkdir -p $JENKINS_AGENT_HOME/.ssh \
     && sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config \
     && mkdir -p /run/openrc \
     && touch /run/openrc/softlevel
+
+COPY setup-sshd /usr/local/bin/setup-sshd
+
 RUN mkdir -p /etc/sudoers.d \
     && echo "jenkins ALL=(root) NOPASSWD: /usr/local/bin/setup-sshd" > /etc/sudoers.d/jenkins \
     && echo "jenkins ALL=(root) NOPASSWD: /usr/bin/tee" >> /etc/sudoers.d/jenkins \
