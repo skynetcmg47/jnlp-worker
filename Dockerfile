@@ -62,6 +62,7 @@ RUN mkdir -p $JENKINS_AGENT_HOME/.ssh \
     && mkdir -p /run/openrc \
     && touch /run/openrc/softlevel
 RUN mkdir -p /etc/sudoers.d \
-    && echo "jenkins ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/jenkins \
+    && echo "jenkins ALL=(root) NOPASSWD: /usr/local/bin/setup-sshd" > /etc/sudoers.d/jenkins \
+    && echo "jenkins ALL=(root) NOPASSWD: /usr/bin/tee" >> /etc/sudoers.d/jenkins \
     && chmod 0440 /etc/sudoers.d/jenkins
-ENTRYPOINT ["sh", "-c", "rc-status; rc-service sshd start; setup-sshd"]
+ENTRYPOINT ["sh", "-c", "env | grep _ | sudo tee -a /etc/environment; setup-sshd"]
