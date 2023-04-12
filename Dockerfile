@@ -1,6 +1,6 @@
 FROM jenkins/ssh-agent:4.5.1-alpine-jdk11
 
-RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl git zip rsync jq coreutils sudo
+RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl git zip rsync jq coreutils sudo libc6-compat
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
@@ -63,6 +63,7 @@ RUN mkdir -p $JENKINS_AGENT_HOME/.ssh \
     && touch /run/openrc/softlevel
 
 COPY setup-sshd /usr/local/bin/setup-sshd
+COPY ssh-config /home/jenkins/.ssh/config
 
 RUN mkdir -p /etc/sudoers.d \
     && echo "jenkins ALL=(root) NOPASSWD: /usr/local/bin/setup-sshd" > /etc/sudoers.d/jenkins \
