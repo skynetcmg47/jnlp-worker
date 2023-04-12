@@ -1,6 +1,6 @@
 FROM jenkins/ssh-agent:4.5.1-alpine-jdk11
 
-RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl git zip rsync jq coreutils sudo libc6-compat
+RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl git zip rsync jq coreutils sudo libc6-compat gcompat
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
@@ -69,17 +69,6 @@ COPY ssh-config /home/jenkins/.ssh/config
 RUN mkdir -p /etc/sudoers.d \
     && echo "jenkins ALL=(root) NOPASSWD: /usr/local/bin/setup-sshd" > /etc/sudoers.d/jenkins \
     && echo "jenkins ALL=(root) NOPASSWD: /usr/bin/tee" >> /etc/sudoers.d/jenkins \
-    && chmod 0440 /etc/sudoers.d/jenkins \
-    && cp /opt/java/openjdk/lib/jli/libjli.so /lib/libjli.so
-COPY ld-musl-x86_64.path /etc/ld-musl-x86_64.pat
-ENV GLIBC_REPO=https://github.com/sgerrand/alpine-pkg-glibc
-ENV GLIBC_VERSION=2.30-r0
-RUN set -ex && \
-    apk --update add libstdc++ curl ca-certificates && \
-    for pkg in glibc-${GLIBC_VERSION} glibc-bin-${GLIBC_VERSION}; \
-        do curl -sSL ${GLIBC_REPO}/releases/download/${GLIBC_VERSION}/${pkg}.apk -o /tmp/${pkg}.apk; done && \
-    apk add --allow-untrusted /tmp/*.apk && \
-    rm -v /tmp/*.apk && \
-    /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib
+    && chmod 0440 /etc/sudoers.d/jenkins
 ENTRYPOINT ["sh", "-c", "env | grep _ | sudo tee -a /etc/environment; sudo setup-sshd"]
 
