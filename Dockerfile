@@ -65,8 +65,10 @@ RUN mkdir -p $JENKINS_AGENT_HOME/.ssh \
 COPY setup-sshd /usr/local/bin/setup-sshd
 COPY ssh-config /home/jenkins/.ssh/config
 
+
 RUN mkdir -p /etc/sudoers.d \
     && echo "jenkins ALL=(root) NOPASSWD: /usr/local/bin/setup-sshd" > /etc/sudoers.d/jenkins \
     && echo "jenkins ALL=(root) NOPASSWD: /usr/bin/tee" >> /etc/sudoers.d/jenkins \
-    && chmod 0440 /etc/sudoers.d/jenkins
+    && chmod 0440 /etc/sudoers.d/jenkins \
+    && mv /opt/java/openjdk/lib/jli/libjli.so /lib/libjli.so
 ENTRYPOINT ["sh", "-c", "env | grep _ | sudo tee -a /etc/environment; sudo setup-sshd"]
