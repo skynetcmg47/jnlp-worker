@@ -45,14 +45,6 @@ ENV LC_ALL en_US.UTF-8
 ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENV NVM_DIR=/opt/nvm
-ENV NODE_VERSION=16
-RUN mkdir -p $NVM_DIR \
-    && curl https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash \
-    && . $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
 
 RUN mkdir -p $JENKINS_AGENT_HOME/.ssh \
     && chmod 0700 $JENKINS_AGENT_HOME/.ssh \
