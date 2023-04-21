@@ -64,6 +64,7 @@ RUN mkdir -p /etc/sudoers.d \
     && chmod 0440 /etc/sudoers.d/jenkins
 RUN mkdir -p /apps/jenkins/build/tools/ && chown -R jenkins:jenkins /apps && chown -R jenkins:jenkins /apps/*
 RUN ln -s "$(which chmod)" /usr/local/bin/chmod
+RUN echo "PATH=/opt/tools/nexus/bin:/opt/tools/gradle/latest/bin:/opt/tools/go/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" >> /etc/environment
 USER jenkins
 ENTRYPOINT ["sh", "-c", "env | grep _ | sudo tee -a /etc/environment; sudo setup-sshd"]
 
