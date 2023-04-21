@@ -63,5 +63,7 @@ RUN mkdir -p /etc/sudoers.d \
     && echo "jenkins ALL=(root) NOPASSWD: /usr/bin/tee" >> /etc/sudoers.d/jenkins \
     && chmod 0440 /etc/sudoers.d/jenkins
 RUN mkdir -p /apps/jenkins/build/tools/ && chown -R jenkins:jenkins /apps && chown -R jenkins:jenkins /apps/*
+RUN ln -s "$(which chmod)" /usr/local/bin/chmod
+USER jenkins
 ENTRYPOINT ["sh", "-c", "env | grep _ | sudo tee -a /etc/environment; sudo setup-sshd"]
 
