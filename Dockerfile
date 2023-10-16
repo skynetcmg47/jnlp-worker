@@ -1,5 +1,5 @@
 FROM jenkins/ssh-agent:5.16.0-alpine-jdk11
-RUN apk update && apk add --no-cache curl docker-cli tzdata ansible tar yarn perl git zip rsync jq coreutils sudo curl-dev 
+RUN apk update && apk add --no-cache curl docker-cli=20.10.20-r0 tzdata ansible tar yarn perl git zip rsync jq coreutils sudo curl-dev 
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
