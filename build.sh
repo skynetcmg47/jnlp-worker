@@ -38,7 +38,7 @@ all() {
   if [[ ! -z ${version} ]];
   then
     source project.properties
-    local image_version_tag="${owner}/${project}:v1.0.34"
+    local image_version_tag="${owner}/${project}:${version}"
     local image_latest_tag="${owner}/${project}:latest"
     echo building ${image_version_tag}
     docker build --no-cache -t ${image_version_tag} .
